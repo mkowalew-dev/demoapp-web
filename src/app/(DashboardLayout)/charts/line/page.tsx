@@ -1,12 +1,14 @@
 "use client"
 import dynamic from "next/dynamic";
-const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 import { useTheme } from "@mui/material/styles";
 import PageContainer from '@/app/components/container/PageContainer';
 import Breadcrumb from '@/app/(DashboardLayout)/layout/shared/breadcrumb/Breadcrumb';
 import ParentCard from '@/app/components/shared/ParentCard';
 import React, {useEffect, useState} from "react";
-import axios from "axios";
+
+
+// Dynamically import ApexCharts to avoid SSR issues
+const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 const BCrumb = [
   {
@@ -25,35 +27,40 @@ const LineChart = () => {
   const secondary = theme.palette.secondary.main;
   const [salesData, setSalesData] = useState([]);
 
-  useEffect(() => {
-    // Fetch sales data from the API
-    axios.get('http://192.168.1.31:4000/api/sales/2024')
-        .then(response => {
-          // Assume response.data is an array of objects with { month: number, amount: number }
-          const data = response.data.map(item => ({
-            x: getMonthName(item.month), // Month as a number
-            y: item.amount  // Sales value
-          }));
-          setSalesData(data);
-          console.log(data)
-        })
-        .catch(error => {
-          console.error("Error fetching sales data:", error);
-        });
-  }, []);
-  // Function to convert month number to month name
   const getMonthName = (monthNumber) => {
     const date = new Date();
     date.setMonth(monthNumber - 1);
     return date.toLocaleString('default', { month: 'long' });
   };
-  const chartOptions = {
-    chart: {
-      fontFamily: "'Plus Jakarta Sans', sans-serif",
-      foreColor: "#adb0bb",
-      toolbar: {
-        show: false,
+
+  useEffect(() => {
+    async function fetchSalesData() {
+      try {
+        const response = await fetch('http://internal-api.demowebapp.net:4000/api/sales/2024'); // Adjust the URL as needed
+        const data = await response.json();
+        setSalesData(data);
+      } catch (error) {
+        console.error('Error fetching sales data:', error);
+      }
+    }
+
+    fetchSalesData();
+  }, []);
+  // Prepare data for the chart
+  const chartData = {
+    series: [
+      {
+        name: 'Sales',
+        data: salesData.map((item) => item.amount),
       },
+    ],
+    options: {
+      chart: {
+        fontFamily: "'Plus Jakarta Sans', sans-serif",
+        foreColor: "#adb0bb",
+        toolbar: {
+          show: false,
+        },
         shadow: {
           enabled: true,
           color: "#000",
@@ -62,56 +69,112 @@ const LineChart = () => {
           blur: 10,
           opacity: 1,
         },
-    },
-    xaxis: {
-      title: {
-        text: 'Month'
-      }
-    },
-    grid: {
-      show: false,
-    },
-    colors: [primary, secondary],
-    dataLabels: {
-      enabled: true,
-    },
-    yaxis: {
-      labels: {
-        formatter: (value) => `$${value.toFixed(0)}` // Format as currency
+        height: 350,
       },
-      title: {
-        text: 'Amount'
-      }
-    },
-    tooltip: {
-      y: {
-        formatter: (value) => `$${value.toFixed(0)}` // Format tooltip as currency
-      }
+      xaxis: {
+        categories: salesData.map((item) => getMonthName(item.month)), // Format month as a number
+        title: {
+          text: 'Month',
+        },
+      },
+      yaxis: {
+        title: {
+          text: 'Amount',
+        },
+        labels: {
+          formatter: (value) => `$${value.toFixed(0)}` // Format as currency
+        },
+      },
+      grid: {
+        show: false,
+      },
+      colors: [primary, secondary],
+      dataLabels: {
+        enabled: true,
+      },
+      tooltip: {
+        y: {
+          formatter: (value) => `$${value.toFixed(0)}` // Format tooltip as currency
+        }
+      },
     },
 
   };
+  // useEffect(async () => {
+  //
+  //   // Fetch sales data from the API
+  //   await axios('http://192.168.1.31:4000/api/sales/2024')
+  //       .then(response => {
+  //         // Assume response.data is an array of objects with { month: number, amount: number }
+  //         const data = response.data.map(item => ({
+  //           x: getMonthName(item.month), // Month as a number
+  //           y: item.amount  // Sales value
+  //         }));
+  //         setSalesData(data);
+  //         console.log(data)
+  //       })
+  //       .catch(error => {
+  //         console.error("Error fetching sales data:", error);
+  // //       });
+  // }, []);
+  // Function to convert month number to month name
 
-  const chartSeries = [
-    {
-      name: 'Sales',
-      data: salesData
-    }
-  ];
+  // const chartOptions = {
+  //   chart: {
+  //     fontFamily: "'Plus Jakarta Sans', sans-serif",
+  //     foreColor: "#adb0bb",
+  //     toolbar: {
+  //       show: false,
+  //     },
+  //     shadow: {
+  //       enabled: true,
+  //       color: "#000",
+  //       top: 18,
+  //       left: 7,
+  //       blur: 10,
+  //       opacity: 1,
+  //     },
+  //   },
+  //   xaxis: {
+  //     title: {
+  //       text: 'Month'
+  //     }
+  //   },
+  //   grid: {
+  //     show: false,
+  //   },
+  //   colors: [primary, secondary],
+  //   dataLabels: {
+  //     enabled: true,
+  //   },
+  //   yaxis: {
+  //     labels: {
+  //       formatter: (value) => `$${value.toFixed(0)}` // Format as currency
+  //     },
+  //     title: {
+  //       text: 'Amount'
+  //     }
+  //   },
+  //   tooltip: {
+  //     y: {
+  //       formatter: (value) => `$${value.toFixed(0)}` // Format tooltip as currency
+  //     }
+  //   },
 
   return (
-    <PageContainer title="Line Chart" description="this is Line Chart">
-      {/* breadcrumb */}
-      <Breadcrumb title="Line Chart" items={BCrumb} />
-      {/* end breadcrumb */}
-      <ParentCard title="Monthly Sales">
+      <PageContainer title="Line Chart" description="this is Line Chart">
+        {/* breadcrumb */}
+        <Breadcrumb title="Line Chart" items={BCrumb} />
+        {/* end breadcrumb */}
+        <ParentCard title="Monthly Sales">
           <Chart
-              options={chartOptions}
-              series={chartSeries}
+              options={chartData.options}
+              series={chartData.series}
               type="line"
               height={350}
           />
-      </ParentCard>
-    </PageContainer>
+        </ParentCard>
+      </PageContainer>
   );
 };
 
