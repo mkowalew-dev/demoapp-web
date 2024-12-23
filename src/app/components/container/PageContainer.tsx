@@ -7,11 +7,12 @@ type Props = {
 };
 
 const PageContainer = ({ title, description, children }: Props) => (
-  <div>
-    <title>{title}</title>
-    <meta name="description" content={description} />
-    {children}
-  </div>
+
+    <div>
+        <title>{title}</title>
+        <meta name="description" content={description}/>
+        {children}
+    </div>
 );
 
 export default PageContainer;

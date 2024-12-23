@@ -23,6 +23,7 @@
     "@mui/x-date-pickers": "^5.0.15",
     "@mui/x-tree-view": "^6.17.0",
     "@reduxjs/toolkit": "^1.9.7",
+    "@splunk/otel-web": "^0.19.3",
     "@tabler/icons-react": "^2.39.0",
     "@types/node": "20.2.3",
     "@types/react": "18.2.28",

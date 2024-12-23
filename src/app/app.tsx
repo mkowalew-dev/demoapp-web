@@ -11,23 +11,32 @@ import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 import { AppState } from "@/store/store";
 import "@/utils/i18n";
 import "@/app/api/index";
+import Script from "next/script";
+import SplunkRum from "@splunk/otel-web";
 
 
 const MyApp = ({ children, session }: { children: React.ReactNode, session: any }) => {
     const theme = ThemeSettings();
     const customizer = useSelector((state: AppState) => state.customizer);
-
+    SplunkRum.init({
+        realm: 'us1', // e.g., us0
+        rumAccessToken: 'LQkhp6MMxl4soUMNZQPODg',
+        applicationName: 'demoapp-web-tier',
+        deploymentEnvironment: 'development', // or 'development', 'sta
+    })
     return (
         <>
         <SessionProvider session={session}>
-            <AppRouterCacheProvider options={{ enableCssLayer: true }}>
-                <ThemeProvider theme={theme}>
-                    <RTL direction={customizer.activeDir}>
-                        <CssBaseline />
-                        {children}
-                    </RTL>
-                </ThemeProvider>
-            </AppRouterCacheProvider>
+            <Script src="https://cdn.signalfx.com/o11y-gdi-rum/latest/splunk-otel-web.js"
+                    crossOrigin="anonymous"></Script>
+        <AppRouterCacheProvider options={{enableCssLayer: true}}>
+            <ThemeProvider theme={theme}>
+                <RTL direction={customizer.activeDir}>
+                <CssBaseline/>
+                            {children}
+                        </RTL>
+                    </ThemeProvider>
+                </AppRouterCacheProvider>
             </SessionProvider>
         </>
     );
