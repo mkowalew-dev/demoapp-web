@@ -111,6 +111,7 @@ const LineChart = () => {
         {/* end breadcrumb */}
         <ParentCard title="Sales API">
           <Chart
+              id={'line-chart'}
               options={chartData.options}
               series={chartData.series}
               type="line"

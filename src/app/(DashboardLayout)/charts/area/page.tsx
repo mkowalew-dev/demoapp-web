@@ -125,7 +125,9 @@ const AreaChart = () => {
       <Breadcrumb title="Area Chart" items={BCrumb} />
       {/* end breadcrumb */}
       <ParentCard title="Sales/Expenses API">
-        <Chart options={optionsareachart} series={seriesareachart} type="area" height="300px" width={"100%"}/>
+        <Chart
+               id={'area-chart'}
+               options={optionsareachart} series={seriesareachart} type="area" height="300px" width={"100%"}/>
       </ParentCard>
     </PageContainer>
   );
