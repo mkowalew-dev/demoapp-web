@@ -260,12 +260,12 @@ const Menuitems: MenuitemsType[] = [
     icon: IconUserCircle,
     href: "/theme-pages/account-settings",
   },
-  {
-    id: uniqueId(),
-    title: "FAQ",
-    icon: IconHelp,
-    href: "/theme-pages/faq",
-  },
+  // {
+  //   id: uniqueId(),
+  //   title: "FAQ",
+  //   icon: IconHelp,
+  //   href: "/theme-pages/faq",
+  // },
   // {
   //   id: uniqueId(),
   //   title: "Landingpage",

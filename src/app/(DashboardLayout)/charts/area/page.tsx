@@ -6,7 +6,9 @@ import { useTheme } from '@mui/material/styles'
 import PageContainer from '@/app/components/container/PageContainer';
 import Breadcrumb from '@/app/(DashboardLayout)/layout/shared/breadcrumb/Breadcrumb';
 import ParentCard from '@/app/components/shared/ParentCard';
-import React from "react";
+import React, {useEffect, useState} from "react";
+
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 const BCrumb = [
   {
@@ -24,7 +26,40 @@ const AreaChart = () => {
   const theme = useTheme();
   const primary = theme.palette.primary.main;
   const secondary = theme.palette.secondary.main;
+  const [salesData, setSalesData, ] = useState([]);
+  const [expenseData, setExpenseData] = useState([]);
 
+  const getMonthName = (monthNumber) => {
+    const date = new Date();
+    date.setMonth(monthNumber - 1);
+    return date.toLocaleString('default', { month: 'long' });
+  };
+  useEffect(() => {
+    async function fetchSalesData1() {
+      try {
+        const response = await fetch(`${apiUrl}/saleslegacy/summary/2024`); // Adjust the URL as needed
+        const data = await response.json();
+        setSalesData(data);
+      } catch (error) {
+        console.error('Error fetching sales data:', error);
+      }
+    }
+
+    fetchSalesData1();
+  }, []);
+  useEffect(() => {
+    async function fetchExpenseData() {
+      try {
+        const response = await fetch(`${apiUrl}/expenseslegacy/summary/2024`); // Adjust the URL as needed
+        const data = await response.json();
+        setExpenseData(data);
+      } catch (error) {
+        console.error('Error fetching Expense data:', error);
+      }
+    }
+
+    fetchExpenseData();
+  }, []);
   const optionsareachart:any = {
     chart: {
       id: 'area-chart',
@@ -46,21 +81,16 @@ const AreaChart = () => {
     },
     colors: [primary, secondary],
     xaxis: {
-      type: 'datetime',
-      categories: [
-        '2018-09-19T00:00:00',
-        '2018-09-19T01:30:00',
-        '2018-09-19T02:30:00',
-        '2018-09-19T03:30:00',
-        '2018-09-19T04:30:00',
-        '2018-09-19T05:30:00',
-        '2018-09-19T06:30:00',
-      ],
+      categories: salesData.map((item) => getMonthName(item.month)), // Format month as a number
+      title: {
+        text: 'Month',
+      },
     },
     yaxis: {
       opposite: false,
       labels: {
         show: true,
+        formatter: (value) => `$${value.toFixed(0)}`   // Format as currency
       },
     },
     legend: {
@@ -74,16 +104,18 @@ const AreaChart = () => {
     tooltip: {
       theme: 'dark',
       fillSeriesColor: false,
+      formatter: (value) => `$${value.toFixed(0)}` // Format tooltip as currency
     },
   };
   const seriesareachart = [
     {
-      name: 'Sales Summery 1',
-      data: [31, 40, 28, 51, 42, 109, 100],
+      name: 'Sales',
+      data: salesData.map((item) => item.amount),
     },
     {
-      name: 'Sales Summery 2',
-      data: [11, 32, 45, 32, 34, 52, 41],
+      name: 'Expenses',
+      data: expenseData.map((item) => item.amount)
+      ,
     },
   ];
 
@@ -92,7 +124,7 @@ const AreaChart = () => {
       {/* breadcrumb */}
       <Breadcrumb title="Area Chart" items={BCrumb} />
       {/* end breadcrumb */}
-      <ParentCard title="Area Chart">
+      <ParentCard title="Sales/Expenses API">
         <Chart options={optionsareachart} series={seriesareachart} type="area" height="300px" width={"100%"}/>
       </ParentCard>
     </PageContainer>

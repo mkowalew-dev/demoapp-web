@@ -6,7 +6,8 @@ import Breadcrumb from '@/app/(DashboardLayout)/layout/shared/breadcrumb/Breadcr
 import ParentCard from '@/app/components/shared/ParentCard';
 import React, {useEffect, useState} from "react";
 
-
+//
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 // Dynamically import ApexCharts to avoid SSR issues
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
@@ -27,6 +28,7 @@ const LineChart = () => {
   const secondary = theme.palette.secondary.main;
   const [salesData, setSalesData] = useState([]);
 
+
   const getMonthName = (monthNumber) => {
     const date = new Date();
     date.setMonth(monthNumber - 1);
@@ -36,16 +38,17 @@ const LineChart = () => {
   useEffect(() => {
     async function fetchSalesData() {
       try {
-        const response = await fetch('http://internal-api.demowebapp.net:4000/api/sales/2024'); // Adjust the URL as needed
+        const response = await fetch(`${apiUrl}/saleslegacy/summary/2024`); // Adjust the URL as needed
         const data = await response.json();
         setSalesData(data);
       } catch (error) {
-        console.error('Error fetching sales data:', error);
+        console.error('Error fetching Sales data:', error);
       }
     }
 
     fetchSalesData();
   }, []);
+
   // Prepare data for the chart
   const chartData = {
     series: [
@@ -106,7 +109,7 @@ const LineChart = () => {
         {/* breadcrumb */}
         <Breadcrumb title="Line Chart" items={BCrumb} />
         {/* end breadcrumb */}
-        <ParentCard title="Monthly Sales">
+        <ParentCard title="Sales API">
           <Chart
               options={chartData.options}
               series={chartData.series}

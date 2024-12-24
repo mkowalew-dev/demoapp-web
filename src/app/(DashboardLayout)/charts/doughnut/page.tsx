@@ -91,29 +91,29 @@ const DoughnutChart = () => {
   const seriespiechart = [45, 15, 27, 18, 35];
 
   return (
-    <PageContainer title="Doughnut Chart" description="this is Doughnut Chart">
-      {/* breadcrumb */}
-      <Breadcrumb title="Doughtnut Chart" items={BCrumb} />
-      {/* end breadcrumb */}
-      <Grid container spacing={3}>
-        <Grid item lg={6} md={12} xs={12}>
-          <ParentCard title="Doughnut Charts">
-            <Chart
-              options={optionsdoughnutchart}
-              series={seriesdoughnutchart}
-              type="donut"
-              height="300px"
-              width={"100%"}
-            />
-          </ParentCard>
+      <PageContainer title="Doughnut Chart" description="this is Doughnut Chart">
+        {/* breadcrumb */}
+        <Breadcrumb title="Doughtnut Chart" items={BCrumb} />
+        {/* end breadcrumb */}
+        <Grid container spacing={3}>
+          <Grid item lg={6} md={12} xs={12}>
+            <ParentCard title="Doughnut Charts">
+              <Chart
+                  options={optionsdoughnutchart}
+                  series={seriesdoughnutchart}
+                  type="donut"
+                  height="300px"
+                  width={"100%"}
+              />
+            </ParentCard>
+          </Grid>
+          <Grid item lg={6} md={12} xs={12}>
+            <ParentCard title='Pie Charts'>
+              <Chart options={optionspiechart} series={seriespiechart} type="pie" height="300px" width={"100%"} />
+            </ParentCard>
+          </Grid>
         </Grid>
-        <Grid item lg={6} md={12} xs={12}>
-          <ParentCard title='Pie Charts'>
-            <Chart options={optionspiechart} series={seriespiechart} type="pie" height="300px" width={"100%"} />
-          </ParentCard>
-        </Grid>
-      </Grid>
-    </PageContainer>
+      </PageContainer>
   );
 };
 
