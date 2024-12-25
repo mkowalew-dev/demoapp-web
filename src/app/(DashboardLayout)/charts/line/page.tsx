@@ -38,7 +38,8 @@ const LineChart = () => {
   useEffect(() => {
     async function fetchSalesData() {
       try {
-        const response = await fetch(`${apiUrl}/saleslegacy/summary/2024`); // Adjust the URL as needed
+        //const response = await fetch(`${apiUrl}/saleslegacy/summary/2024`); // Adjust the URL as needed
+        const response = await fetch(`/api/sales/summary/current`);
         const data = await response.json();
         setSalesData(data);
       } catch (error) {

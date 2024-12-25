@@ -37,7 +37,7 @@ const AreaChart = () => {
   useEffect(() => {
     async function fetchSalesData1() {
       try {
-        const response = await fetch(`${apiUrl}/saleslegacy/summary/2024`); // Adjust the URL as needed
+        const response = await fetch(`/api/sales/summary/current`);
         const data = await response.json();
         setSalesData(data);
       } catch (error) {
@@ -50,7 +50,7 @@ const AreaChart = () => {
   useEffect(() => {
     async function fetchExpenseData() {
       try {
-        const response = await fetch(`${apiUrl}/expenseslegacy/summary/2024`); // Adjust the URL as needed
+        const response = await fetch(`/api/expenses/summary/current`);; // Adjust the URL as needed
         const data = await response.json();
         setExpenseData(data);
       } catch (error) {

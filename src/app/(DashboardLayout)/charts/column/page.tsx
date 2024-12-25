@@ -41,8 +41,7 @@ const ColumnChart = () => {
   useEffect(() => {
     async function fetchOrderPendingData() {
       try {
-        const response = await fetch(`${apiUrl}/orders/pending
-`); // Adjust the URL as needed
+        const response = await fetch(`/api/orders/pending`); // Adjust the URL as needed
         const data = await response.json();
         setOrderPendingData(data);
       } catch (error) {
@@ -55,8 +54,7 @@ const ColumnChart = () => {
   useEffect(() => {
     async function fetchOrderShippedData() {
       try {
-        const response = await fetch(`${apiUrl}/orders/shipped
-`); // Adjust the URL as needed
+        const response = await fetch(`/api/orders/shipped`); // Adjust the URL as needed
         const data = await response.json();
         setOrderShippedData(data);
       } catch (error) {
@@ -69,8 +67,7 @@ const ColumnChart = () => {
   useEffect(() => {
     async function fetchOrderCompletedData() {
       try {
-        const response = await fetch(`${apiUrl}/orders/completed
-`); // Adjust the URL as needed
+        const response = await fetch(`/api/orders/completed`); // Adjust the URL as needed
         const data = await response.json();
         setOrderCompletedData(data);
       } catch (error) {
@@ -83,8 +80,7 @@ const ColumnChart = () => {
   useEffect(() => {
     async function fetchOrderCanceledData() {
       try {
-        const response = await fetch(`${apiUrl}/orders/canceled
-`); // Adjust the URL as needed
+        const response = await fetch(`$/api/orders/canceled`); // Adjust the URL as needed
         const data = await response.json();
         setOrderCanceledData(data);
       } catch (error) {

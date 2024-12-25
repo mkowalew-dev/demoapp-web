@@ -3,7 +3,7 @@ const { parse } = require("url");
 const next = require("next");
 
 const dev = false;
-const hostname = "localhost";
+const hostname = process.env.NEXT_PUBLIC_SPLUNK_ENV || "localhost";
 const port = 3000;
 // when using middleware `hostname` and `port` must be provided below
 const app = next({ dev, hostname, port });
