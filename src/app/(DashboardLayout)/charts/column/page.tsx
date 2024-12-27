@@ -45,7 +45,7 @@ const ColumnChart = () => {
         const data = await response.json();
         setOrderPendingData(data);
       } catch (error) {
-        console.error('Error fetching sales data:', error);
+        console.error('Error fetching order pending data:', error);
       }
     }
 
@@ -58,7 +58,7 @@ const ColumnChart = () => {
         const data = await response.json();
         setOrderShippedData(data);
       } catch (error) {
-        console.error('Error fetching sales data:', error);
+        console.error('Error fetching order shipped data:', error);
       }
     }
 
@@ -71,7 +71,7 @@ const ColumnChart = () => {
         const data = await response.json();
         setOrderCompletedData(data);
       } catch (error) {
-        console.error('Error fetching sales data:', error);
+        console.error('Error fetching order completed data:', error);
       }
     }
 
@@ -80,11 +80,11 @@ const ColumnChart = () => {
   useEffect(() => {
     async function fetchOrderCanceledData() {
       try {
-        const response = await fetch(`$/api/orders/canceled`); // Adjust the URL as needed
+        const response = await fetch(`/api/orders/canceled`); // Adjust the URL as needed
         const data = await response.json();
         setOrderCanceledData(data);
       } catch (error) {
-        console.error('Error fetching sales data:', error);
+        console.error('Error fetching order canceled data:', error);
       }
     }
 
