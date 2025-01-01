@@ -119,7 +119,8 @@ const ColumnChart = () => {
       colors: ['transparent'],
     },
     xaxis: {
-      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+      //categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+      categories: orderCompletedData.map((item) => `${item.month}-${item.year}`,)
     },
     yaxis: {
       title: {
@@ -146,19 +147,19 @@ const ColumnChart = () => {
   const seriescolumnchart: any = [
     {
       name: 'Canceled',
-      data: orderCanceledData.map((item) => item.order_count),
+      data: orderCanceledData.map((item) => item.total),
     },
     {
       name: 'Pending',
-      data: orderPendingData.map((item) => item.order_count),
+      data: orderPendingData.map((item) => item.total),
     },
     {
       name: 'Shipped',
-      data: orderShippedData.map((item) => item.order_count),
+      data: orderShippedData.map((item) => item.total),
     },
     {
       name: 'Completed',
-      data: orderCompletedData.map((item) => item.order_count),
+      data: orderCompletedData.map((item) => item.total),
     },
   ];
 

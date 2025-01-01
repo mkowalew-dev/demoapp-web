@@ -81,9 +81,9 @@ const AreaChart = () => {
     },
     colors: [primary, secondary],
     xaxis: {
-      categories: salesData.map((item) => getMonthName(item.month)), // Format month as a number
+      categories: salesData.map((item) => item.month), // Format month as a number
       title: {
-        text: 'Month',
+        text: 'Month-Year',
       },
     },
     yaxis: {
@@ -110,11 +110,11 @@ const AreaChart = () => {
   const seriesareachart = [
     {
       name: 'Sales',
-      data: salesData.map((item) => item.amount),
+      data: salesData.map((item) => item.total_sales),
     },
     {
       name: 'Expenses',
-      data: expenseData.map((item) => item.amount)
+      data: expenseData.map((item) => item.total_amount)
       ,
     },
   ];

@@ -5,7 +5,9 @@ export default async function handler(req, res) {
 
     if (method === 'GET') {
         try {
-            const response = await fetch(`${apiUrl}/orders/completed`);
+            const response = await fetch(`${apiUrl}/orders/completed/monthly`, {headers: {
+                    'x-api-key': process.env.NEXT_PUBLIC_API_KEY
+                }});
             const data = await response.json();
 
             res.status(200).json(data);
