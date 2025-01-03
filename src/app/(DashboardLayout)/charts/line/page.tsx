@@ -55,7 +55,7 @@ const LineChart = () => {
     series: [
       {
         name: 'Sales',
-        data: salesData.map((item) => item.total_sales),
+        data: salesData.map((item) => item.total_amount),
       },
     ],
     options: {
@@ -76,7 +76,7 @@ const LineChart = () => {
         height: 350,
       },
       xaxis: {
-        categories: salesData.map((item) => item.month), // Format month as a number
+        categories: salesData.map((item) => [getMonthName(item.month), (item.year)]), // Format month as a number
         title: {
           text: 'Month-Year',
         },

@@ -17,29 +17,29 @@ const AuthSocialButtons = ({ title }: signInType) => {
   }
   return (
   <>
-    <Stack direction="row" justifyContent="center" spacing={2} mt={3}>
-      <CustomSocialButton onClick={handleGoogleSignIn}>
-        <Avatar
-          src={"/images/svgs/google-icon.svg"}
-          alt={"icon1"}
-          sx={{
-            width: 16,
-            height: 16,
-            borderRadius: 0,
-            mr: 1,
-          }}
-        />
-        <Box
-          sx={{
-            display: { xs: "none", sm: "flex" },
-            whiteSpace: "nowrap",
-            mr: { sm: "3px" },
-          }}
-        >
-          {title}{" "}
-        </Box>{" "}
-        Google
-      </CustomSocialButton>
+    <Stack direction="row" justifyContent="left" spacing={2} mt={3}>
+      {/*<CustomSocialButton onClick={handleGoogleSignIn}>*/}
+      {/*  <Avatar*/}
+      {/*    src={"/images/svgs/google-icon.svg"}*/}
+      {/*    alt={"icon1"}*/}
+      {/*    sx={{*/}
+      {/*      width: 16,*/}
+      {/*      height: 16,*/}
+      {/*      borderRadius: 0,*/}
+      {/*      mr: 1,*/}
+      {/*    }}*/}
+      {/*  />*/}
+      {/*  <Box*/}
+      {/*    sx={{*/}
+      {/*      display: { xs: "none", sm: "flex" },*/}
+      {/*      whiteSpace: "nowrap",*/}
+      {/*      mr: { sm: "3px" },*/}
+      {/*    }}*/}
+      {/*  >*/}
+      {/*    {title}{" "}*/}
+      {/*  </Box>{" "}*/}
+      {/*  Google*/}
+      {/*</CustomSocialButton>*/}
       <CustomSocialButton onClick={handleGithubSignIn}>
         <Avatar
           src={"/images/svgs/git-icon.svg"}
