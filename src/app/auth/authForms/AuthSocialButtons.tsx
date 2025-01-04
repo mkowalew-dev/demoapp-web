@@ -40,7 +40,8 @@ const AuthSocialButtons = ({ title }: signInType) => {
       {/*  </Box>{" "}*/}
       {/*  Google*/}
       {/*</CustomSocialButton>*/}
-      <CustomSocialButton onClick={handleGithubSignIn}>
+      <CustomSocialButton id= "github_login"
+                          onClick={handleGithubSignIn}>
         <Avatar
           src={"/images/svgs/git-icon.svg"}
           alt={"icon2"}
