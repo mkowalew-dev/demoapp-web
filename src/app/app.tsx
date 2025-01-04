@@ -19,20 +19,22 @@ const MyApp = ({ children, session }: { children: React.ReactNode, session: any 
     const theme = ThemeSettings();
     const customizer = useSelector((state: AppState) => state.customizer);
     SplunkRum.init({
-        realm: 'us1', // e.g., us0
-        rumAccessToken: 'LQkhp6MMxl4soUMNZQPODg',
-        applicationName: process.env.NEXT_PUBLIC_SPLUNK_APP_NAME,
-        deploymentEnvironment: process.env.NEXT_PUBLIC_SPLUNK_ENV,
+        realm: "us1",
+        rumAccessToken: "LQkhp6MMxl4soUMNZQPODg",
+        applicationName: "demoapp-web",
+        deploymentEnvironment: "staging"
     })
     return (
         <>
-        <SessionProvider session={session}>
-            <Script src="https://cdn.signalfx.com/o11y-gdi-rum/latest/splunk-otel-web.js"
-                    crossOrigin="anonymous"></Script>
-        <AppRouterCacheProvider options={{enableCssLayer: true}}>
-            <ThemeProvider theme={theme}>
-                <RTL direction={customizer.activeDir}>
-                <CssBaseline/>
+            <SessionProvider session={session}>
+                <Script src="https://cdn.signalfx.com/o11y-gdi-rum/latest/splunk-otel-web.js"
+                        crossOrigin="anonymous"></Script>
+                <Script src="https://cdn.signalfx.com/o11y-gdi-rum/latest/splunk-otel-web-session-recorder.js"
+                        crossOrigin="anonymous"></Script>
+                <AppRouterCacheProvider options={{enableCssLayer: true}}>
+                    <ThemeProvider theme={theme}>
+                        <RTL direction={customizer.activeDir}>
+                            <CssBaseline/>
                             {children}
                         </RTL>
                     </ThemeProvider>
