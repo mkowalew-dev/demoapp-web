@@ -77,12 +77,12 @@ export default function Register() {
         >
           <Box p={4}>
             <AuthRegister
-              title="Demo Web Application"
-              // subtext={
-              //   <Typography variant="subtitle1" color="textSecondary" mb={1}>
-              //     Your Admin Dashboard
-              //   </Typography>
-              // }
+              title="Retail Demo Store"
+              subtext={
+                  <Typography variant="subtitle1" color="textSecondary" mb={1}>
+                      Revolutionize your Digital Experiences!
+                  </Typography>
+              }
               subtitle={
                 <Stack direction="row" spacing={1} mt={3}>
                   <Typography color="textSecondary" variant="h6" fontWeight="400">

@@ -3,8 +3,8 @@ import { Providers } from "@/store/providers";
 import MyApp from "./app";
 
 export const metadata = {
-  title: "Demo App",
-  description: "Demo App",
+  title: "Retail Demo Store",
+  description: "Retail Demo Store",
 };
 
 export default function RootLayout({

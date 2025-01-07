@@ -72,7 +72,7 @@ export default function Login () {
       >
         <Box p={4}>
           <AuthLogin
-            title="Demo Web Application"
+            title="Retail Demo Store"
             subtext={
               <Typography variant="subtitle1" color="textSecondary" mb={1}>
                 Revolutionize your Digital Experiences!

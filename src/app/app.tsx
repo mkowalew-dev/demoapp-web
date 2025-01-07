@@ -21,8 +21,8 @@ const MyApp = ({ children, session }: { children: React.ReactNode, session: any 
     SplunkRum.init({
         realm: "us1",
         rumAccessToken: "LQkhp6MMxl4soUMNZQPODg",
-        applicationName: "demoapp-web",
-        deploymentEnvironment: "staging"
+        applicationName: process.env.NEXT_PUBLIC_SPLUNK_APP_NAME,
+        deploymentEnvironment: process.env.NEXT_PUBLIC_SPLUNK_ENV,
     })
     return (
         <>
